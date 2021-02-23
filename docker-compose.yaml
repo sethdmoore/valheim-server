@@ -1,0 +1,22 @@
+---
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+    image: valheim_dedicated:latest
+    container_name: valheim
+    restart: always
+    environment:
+      - APP_BRANCH=public
+      - APP_HOME=/valheim
+      - INSTALL_DIR="${APP_HOME}/valheim_server"
+      - DATA_DIR="${APP_HOME}/.config/unity3d/IronGate/Valheim"
+      - HOST_INSTALL_DIR=/opt/valheim_server
+      - HOST_DATA_DIR=/opt/valheim_worlds
+    ports:
+      - "${APP_PORT}:${APP_PORT}/udp"
+    volumes:
+      - "${HOST_INSTALL_DIR}:${INSTALL_DIR}"
+      - "${HOST_DATA_DIR}:${DATA_DIR}"
